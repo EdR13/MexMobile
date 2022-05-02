@@ -1,3 +1,3 @@
 # Privacy Policy
 
-Edit this file to define the privacy policy for your application.
+You agree that this is a test application and that we do not sell real phones.
