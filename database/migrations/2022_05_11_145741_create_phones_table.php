@@ -28,7 +28,8 @@ class CreatePhonesTable extends Migration
             $table->integer('batery');
             $table->boolean('5g_capable');
             $table->year('release_year');
-            $table->integer('precio');
+            $table->integer('price');
+            $table->binary('photo');
             $table->timestamps();
         });
     }
