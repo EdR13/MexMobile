@@ -1,9 +1,10 @@
 <?php
 
+use App\Http\Controllers\PhoneController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,3 +51,23 @@ Route::middleware([
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
 })->middleware('auth')->name('verification.notice');
+
+Route::get('/phones', function(){
+    $phones = DB::table('phones')->get();
+    //dd($phones);
+    return view('phones.indexPhones', compact('phones'));
+});
+
+/*
+Route::get('/phones/create', function(){
+    return view('phones.formPhones');
+});
+
+Route::post('/phones/store', function(){
+    //Validación y limpieza
+    //Guardar a DB
+    //Redireccionar
+});
+*/
+
+Route::resource('/phone', PhoneController::class);

@@ -16,8 +16,8 @@ class PhonesSeeder extends Seeder
     {
         DB::table('phones')->insert([
             //'manufacter' => '1',
-            //'color' => '2',
-            //'os' => '3',
+            //'color' => '1',
+            //'os' => '1',
             'model' => 'Iphone 13',
             'name' => 'Iphone 13 Pro Max',
             'storage' => '256',
