@@ -14,11 +14,17 @@ class Operative_SystemsSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('operative_systems')->insert([
-            'os_name' => 'IOS',
-            'os_version' => '15',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        //iOS
+        DB::table('operative_systems')->insert(['os_name' => 'iOS','os_version' => '15',]);
+        DB::table('operative_systems')->insert(['os_name' => 'iOS','os_version' => '14.1',]);
+        DB::table('operative_systems')->insert(['os_name' => 'iOS','os_version' => '13.4',]);
+        DB::table('operative_systems')->insert(['os_name' => 'iOS','os_version' => '13',]);
+
+        //Android
+        DB::table('operative_systems')->insert(['os_name' => 'Android','os_version' => '12.1',]);
+        DB::table('operative_systems')->insert(['os_name' => 'Android','os_version' => '12',]);
+        DB::table('operative_systems')->insert(['os_name' => 'Android','os_version' => '11',]);
+        DB::table('operative_systems')->insert(['os_name' => 'Android','os_version' => '10',]);
+
     }
 }

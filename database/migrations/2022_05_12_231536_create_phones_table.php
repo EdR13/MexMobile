@@ -15,12 +15,6 @@ class CreatePhonesTable extends Migration
     {
         Schema::create('phones', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('manufacter');
-            $table->foreign('manufacter')->references('id')->on('manufacters');
-            $table->unsignedBigInteger('color');
-            $table->foreign('color')->references('id')->on('colors');
-            $table->unsignedBigInteger('os');
-            $table->foreign('os')->references('id')->on('operative_systems');
             $table->string('model', 45);
             $table->string('name', 45);
             $table->integer('storage');
@@ -29,7 +23,9 @@ class CreatePhonesTable extends Migration
             $table->boolean('5g_capable');
             $table->year('release_year');
             $table->integer('price');
-            $table->binary('photo');
+            $table->foreignId('manufacter_id')->references('id')->on('manufacters');
+            $table->foreignId('color_id')->references('id')->on('colors');
+            $table->foreignId('os_id')->references('id')->on('operative_systems');
             $table->timestamps();
         });
     }

@@ -32,20 +32,24 @@ Route::post('/email/verification-notification', function (Request $request) {
 
 Route::get('/profile', function () {
     // Only verified users may access this route...
-})->middleware('verified');
+})->middleware(['verified', 'auth']);
 
 Route::get('/', function () {
-    return view('pages.main');
+    return view('welcome');
 });
+
+Route::get('/ControlPanel', function () {
+    return view('admin.tablePhones');
+})->middleware(['verified', 'auth']);
 
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/home', function () {
+        return view('home');
+    })->name('home');
 });
 
 Route::get('/email/verify', function () {

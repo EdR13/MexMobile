@@ -14,7 +14,7 @@ class PhonesSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('phones')->insert([
+        /*DB::table('phones')->insert([
             //'manufacter' => '1',
             //'color' => '1',
             //'os' => '1',
@@ -28,6 +28,7 @@ class PhonesSeeder extends Seeder
             'precio' => '23999',
             'created_at' => now(),
             'updated_at' => now(),
-        ]);
+        ]);*/
+        \App\Models\Phone::factory(10)->create();
     }
 }

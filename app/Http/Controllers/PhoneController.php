@@ -3,23 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Models\Phone;
+use App\Models\Color;
+use App\Models\Images;
+use App\Models\Manufacter;
+use App\Models\Operative_System;
 use Illuminate\Http\Request;
 
 class PhoneController extends Controller
 {
     private $reglasValidacion = [
-        'manufacter' => 'required', 'numeric',
-        'color' => ['required', 'numeric'],
-        'os' => ['required', 'numeric'],
-        'model' => 'required|min:5|max:255',
-        'name' => 'required|min:5|max:255',
-        'storage' => ['required', 'numeric'],
-        'ram' => ['required', 'numeric'],
-        'batery' => ['required', 'numeric'],
-        '5g_capable' => ['required', 'numeric'],
-        'release_year' => ['required', 'numeric'],
-        'price' => ['required', 'numeric'],
-        'photo' => 'required'
+        'manufacter' => 'required|numeric|exists:manufacters', //Posiblemente se necesite el ID aquí
+        'color' => 'required|numeric|exists:colors',
+        'os' => 'required|numeric|exists:operative_systems',
+        'model' => 'required|min:5|max:45',
+        'name' => 'required|min:5|max:45',
+        'storage' => 'required|numeric|max:2048',
+        'ram' => 'required|numeric|max:12',
+        'batery' => 'required|numeric|max:7000',
+        '5g_capable' => 'required|boolean',
+        'release_year' => 'required|numeric|min:2015|max:2022',
+        'price' => 'required|numeric|min:0',
     ];
     
     /**

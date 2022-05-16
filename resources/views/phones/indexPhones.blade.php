@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phones</title>
-</head>
-<body>
+@extends('layouts.home')
+@section('content')
     <h1>List oh phones</h1>
     <a href="/phone/create" class="btn btn-primary">Agregar nuevo teléfono</a>
     <table>
@@ -55,5 +48,6 @@
             @endforeach
         </tbody>
     </table>
-</body>
-</html>
+
+    
+@endsection
