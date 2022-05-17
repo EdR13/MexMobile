@@ -11,7 +11,7 @@ class Color extends Model
     public $timestamps = false;
     
     public function phone(){
-        return $this->belongsToMany(Phone::class);
+        return $this->belongsTo(Phone::class);
     }
 
 }

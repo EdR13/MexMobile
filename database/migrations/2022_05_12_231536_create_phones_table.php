@@ -23,10 +23,11 @@ class CreatePhonesTable extends Migration
             $table->boolean('5g_capable');
             $table->year('release_year');
             $table->integer('price');
-            $table->foreignId('manufacter_id')->references('id')->on('manufacters');
+            $table->foreignId('manufacturer_id')->references('id')->on('manufacturers');
             $table->foreignId('color_id')->references('id')->on('colors');
             $table->foreignId('os_id')->references('id')->on('operative_systems');
             $table->timestamps();
+            $table->softDeletes($column = 'deleted_at', $precision = 0);
         });
     }
 

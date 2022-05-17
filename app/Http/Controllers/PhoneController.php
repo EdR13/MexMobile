@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Phone;
 use App\Models\Color;
 use App\Models\Images;
-use App\Models\Manufacter;
+use App\Models\Manufacturer;
 use App\Models\Operative_System;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+
 
 class PhoneController extends Controller
 {
@@ -17,7 +19,7 @@ class PhoneController extends Controller
         'os' => 'required|numeric|exists:operative_systems',
         'model' => 'required|min:5|max:45',
         'name' => 'required|min:5|max:45',
-        'storage' => 'required|numeric|max:2048',
+        'storage' => 'required|numeric|in:64,128,256,512,1024',
         'ram' => 'required|numeric|max:12',
         'batery' => 'required|numeric|max:7000',
         '5g_capable' => 'required|boolean',
@@ -33,7 +35,21 @@ class PhoneController extends Controller
     public function index()
     {
         $phones = Phone::all(); //or get
-        return view('phones.indexPhones', compact('phones'));
+        return view('home', compact('phones'));
+    }
+
+    public function controlPanel()
+    {
+        $phones = Phone::all(); //or get
+
+        $images = Images::all(); ///Esto se debe arreglar
+        return view('admin.tablePhones', compact('phones','images'));
+    }
+    
+    public function myOrders()
+    {
+        $orders = Auth::user()->order('user')->get(); //listado de solo ese usuario 
+        return view('phones.orders', compact('orders'));
     }
 
     /**
@@ -43,7 +59,11 @@ class PhoneController extends Controller
      */
     public function create()
     {
-        return view('phones.formPhones');
+        $os = Operative_System::all();
+        $manufacturers = Manufacturer::all();
+        $colors = Color::all();
+
+        return view('phones.formPhones',  compact('os', 'manufacturers', 'colors'));
     }
 
     /**
@@ -137,6 +157,11 @@ class PhoneController extends Controller
     public function destroy(Phone $phone)
     {
         $phone ->delete();
-        return redirect('/phone');
+        return redirect('/ControlPanel')->with('success', 'Phone Deleted successfully.');
+    }
+
+    public function bindImages(Request $request)
+    {
+
     }
 }

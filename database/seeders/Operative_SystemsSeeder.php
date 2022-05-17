@@ -15,16 +15,16 @@ class Operative_SystemsSeeder extends Seeder
     public function run()
     {
         //iOS
-        DB::table('operative_systems')->insert(['os_name' => 'iOS','os_version' => '15',]);
-        DB::table('operative_systems')->insert(['os_name' => 'iOS','os_version' => '14.1',]);
-        DB::table('operative_systems')->insert(['os_name' => 'iOS','os_version' => '13.4',]);
-        DB::table('operative_systems')->insert(['os_name' => 'iOS','os_version' => '13',]);
+        DB::table('operative_systems')->insert(['name' => 'iOS','version' => '15',]);
+        DB::table('operative_systems')->insert(['name' => 'iOS','version' => '14.1',]);
+        DB::table('operative_systems')->insert(['name' => 'iOS','version' => '13.4',]);
+        DB::table('operative_systems')->insert(['name' => 'iOS','version' => '13',]);
 
         //Android
-        DB::table('operative_systems')->insert(['os_name' => 'Android','os_version' => '12.1',]);
-        DB::table('operative_systems')->insert(['os_name' => 'Android','os_version' => '12',]);
-        DB::table('operative_systems')->insert(['os_name' => 'Android','os_version' => '11',]);
-        DB::table('operative_systems')->insert(['os_name' => 'Android','os_version' => '10',]);
+        DB::table('operative_systems')->insert(['name' => 'Android','version' => '12.1',]);
+        DB::table('operative_systems')->insert(['name' => 'Android','version' => '12',]);
+        DB::table('operative_systems')->insert(['name' => 'Android','version' => '11',]);
+        DB::table('operative_systems')->insert(['name' => 'Android','version' => '10',]);
 
     }
 }

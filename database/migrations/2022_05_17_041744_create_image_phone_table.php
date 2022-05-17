@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateManufactersTable extends Migration
+class CreateImagePhoneTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateManufactersTable extends Migration
      */
     public function up()
     {
-        Schema::create('manufacters', function (Blueprint $table) {
-            $table->id();
-            $table->string('manufacter_name', 20);
-            $table->timestamps();
+        Schema::create('image_phone', function (Blueprint $table) {
+            $table->foreignId('image_id')->constrained();
+            $table->foreignId('phone_id')->constrained()->onDelete('cascade');
         });
     }
 
@@ -27,6 +26,6 @@ class CreateManufactersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('manufacters');
+        Schema::dropIfExists('image_phone');
     }
 }

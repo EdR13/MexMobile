@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOperativeSystemsTable extends Migration
+class CreateManufacturersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateOperativeSystemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('operative_systems', function (Blueprint $table) {
+        Schema::create('manufacturers', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 15);
-            $table->integer('version');
+            $table->string('name', 20);
         });
     }
 
@@ -27,6 +26,6 @@ class CreateOperativeSystemsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('operative_systems');
+        Schema::dropIfExists('manufacturers');
     }
 }

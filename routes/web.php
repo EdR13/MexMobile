@@ -6,7 +6,9 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-/*
+use App\Models\Phone;
+
+/*{{  }}{{--  --}}
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
@@ -38,9 +40,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/ControlPanel', function () {
-    return view('admin.tablePhones');
-})->middleware(['verified', 'auth']);
+Route::get('/ControlPanel', [PhoneController::class, 'controlPanel'])->middleware(['verified', 'auth']);
 
 Route::middleware([
     'auth:sanctum',
@@ -48,7 +48,8 @@ Route::middleware([
     'verified'
 ])->group(function () {
     Route::get('/home', function () {
-        return view('home');
+        $phones = Phone::all();
+        return view('home', compact('phones'));
     })->name('home');
 });
 
@@ -56,16 +57,16 @@ Route::get('/email/verify', function () {
     return view('auth.verify-email');
 })->middleware('auth')->name('verification.notice');
 
-Route::get('/phones', function(){
-    $phones = DB::table('phones')->get();
-    //dd($phones);
-    return view('phones.indexPhones', compact('phones'));
-});
+Route::get('/create', [PhoneController::class, 'create'])->middleware(['verified', 'auth']);;
+
+// Route::get('/phones', function(){
+//     $phones = DB::table('phones')->get();
+//     //dd($phones);
+//     return view('phones.indexPhones', compact('phones'));
+// });
 
 /*
-Route::get('/phones/create', function(){
-    return view('phones.formPhones');
-});
+
 
 Route::post('/phones/store', function(){
     //Validación y limpieza
@@ -74,4 +75,4 @@ Route::post('/phones/store', function(){
 });
 */
 
-Route::resource('/phone', PhoneController::class);
+Route::resource('/phones', PhoneController::class)->middleware(['verified', 'auth']);
