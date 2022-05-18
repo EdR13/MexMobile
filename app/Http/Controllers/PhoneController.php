@@ -52,8 +52,7 @@ class PhoneController extends Controller
             abort(403);
         }
         $phones = Phone::all();
-        $images = Image::all();
-        return view('admin.tablePhones', compact('phones','images'));
+        return view('admin.tablePhones', compact('phones'));
     }
     
     public function myOrders()
@@ -171,7 +170,7 @@ class PhoneController extends Controller
 
         $request ->validate($this->reglasValidacion);
 
-        $phone = new Phone();
+        $phone ->id = $phone->id;
         $phone ->manufacturer_id = $request ->manufacturer;
         $phone ->color_id = $request ->color;
         $phone ->os_id = $request ->os;
@@ -218,7 +217,7 @@ class PhoneController extends Controller
             abort(403);
         }
         $list = ImagePhone::where('phone_id', $phone->id)->get('image_id');
-        $images= Image::whereIn('id', $img)->get();
+        $images= Image::whereIn('id', $list)->get();
         foreach($images as $image)
         {
             if(File::exists("phones/".$image->image))
