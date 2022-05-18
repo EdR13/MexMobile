@@ -12,11 +12,11 @@ class Phone extends Model
     use HasFactory;
     use SoftDeletes;
 
-    public function image(){
-        return $this->belongsToMany(Image::class);
+    public function images(){
+        return $this->hasMany(Image::class);
     }
 
-    public function color(){
+    public function color($id){
         return Color::find($id)->color;
     }
 
@@ -24,11 +24,11 @@ class Phone extends Model
         return Manufacturer::find($id)->name;
     }
 
-    public function operative_system($id){
+    public function os($id){
         return Operative_System::find($id)->name;
     }
 
     public function order(){
-        return $this->belongsTo(Order::class);
+        return $this->hasMany(Order::class);
     }
 }

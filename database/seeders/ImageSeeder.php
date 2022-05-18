@@ -15,7 +15,7 @@ class ImageSeeder extends Seeder
     public function run()
     {
         //iPhone 13 Pro Max
-        DB::table('images')->insert(['image' => 'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-pro-max-gold-select?wid=940&hei=1112&fmt=png-alpha&.v=1645552346295',]);
+        DB::table('images')->insert(['image' => 'https://th.bing.com/th/id/R.80790b98cce6acf3c4be26b926ef96dd?rik=ov%2bXGTgQSLTgeQ&riu=http%3a%2f%2fmy-apple-store.ru%2fwa-data%2fpublic%2fshop%2fproducts%2f12%2f12%2f11212%2fimages%2f16064%2f16064.970.png&ehk=22PI8sQgZgeb9h2bMUZ%2fkMerlPheYHhOGcQBFJgzyfk%3d&risl=&pid=ImgRaw&r=0',]);
         
         //iPhone 12 Pro Max
         DB::table('images')->insert(['image' => 'https://delightvillage.com/wp-content/uploads/2021/03/iphone12-max.png',]);

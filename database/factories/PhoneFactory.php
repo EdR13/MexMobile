@@ -32,8 +32,8 @@ class PhoneFactory extends Factory
             'name' => $this->faker->randomElement(['iPhone', 'Samsung Galaxy', 'One Plus']),
             'storage' => $this->faker->randomElement(['64', '128', '256', '512', '1024']),
             'ram' => $this->faker->randomElement(['4', '6']),
-            'batery' => $this->faker->randomElement(['3200', '4000']),
-            '5g_capable' => $this->faker->numberBetween(0,1),
+            'battery' => $this->faker->randomElement(['3200', '4000']),
+            'fiveg_capable' => $this->faker->numberBetween(0,1),
             'release_year' => $this->faker->randomElement(['2018', '2019','2020','2021']),
             'price' => $this->faker->numberBetween(15000,35000),
         ];

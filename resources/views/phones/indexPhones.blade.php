@@ -12,8 +12,8 @@
                 <th scope="col">Name</th>
                 <th scope="col">Storage</th>
                 <th scope="col">RAM</th>
-                <th scope="col">Batery</th>
-                <th scope="col">5G_Capable</th>
+                <th scope="col">battery</th>
+                <th scope="col">fiveg_capable</th>
                 <th scope="col">Release year</th>
                 <th scope="col">Price</th>
                 <th scope="col">Photo</th>
@@ -30,7 +30,7 @@
                     <td>>{{$phone->name}}</</td>
                     <td>>{{$phone->storage}}</</td>
                     <td>>{{$phone->ram}}</</td>
-                    <td>>{{$phone->batery}}</</td>
+                    <td>>{{$phone->battery}}</</td>
                     <td></td>
                     <td>{{$phone->release_year}}</td>
                     <td>{{$phone->price}}</td>

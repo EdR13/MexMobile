@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\Phone;
+use App\Models\Image;
+use App\Models\ImagePhone;
 
 /*{{  }}{{--  --}}
 |--------------------------------------------------------------------------
@@ -49,7 +51,8 @@ Route::middleware([
 ])->group(function () {
     Route::get('/home', function () {
         $phones = Phone::all();
-        return view('home', compact('phones'));
+        $images = Image::all();
+        return view('home', compact('phones', 'images'));
     })->name('home');
 });
 
@@ -57,22 +60,7 @@ Route::get('/email/verify', function () {
     return view('auth.verify-email');
 })->middleware('auth')->name('verification.notice');
 
-Route::get('/create', [PhoneController::class, 'create'])->middleware(['verified', 'auth']);;
-
-// Route::get('/phones', function(){
-//     $phones = DB::table('phones')->get();
-//     //dd($phones);
-//     return view('phones.indexPhones', compact('phones'));
-// });
-
-/*
-
-
-Route::post('/phones/store', function(){
-    //Validación y limpieza
-    //Guardar a DB
-    //Redireccionar
-});
-*/
-
+Route::get('/create', [PhoneController::class, 'create'])->middleware(['verified', 'auth']);
+Route::delete('/deletePhoto/{id}', [PhoneController::class, 'deletePhoto'])->middleware(['verified', 'auth']);
+Route::get('/phones/orders', [PhoneController::class, 'myOrders'])->middleware(['verified', 'auth']);
 Route::resource('/phones', PhoneController::class)->middleware(['verified', 'auth']);

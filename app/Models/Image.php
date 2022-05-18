@@ -5,17 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Order extends Model
+class Image extends Model
 {
     use HasFactory;
-
-    public function user(){
-        return $this->belongsToMany(User::class);
-    }
-
+    public $timestamps = false;
+    
     public function phone(){
-        return $this->belongsToMany(Phone::class);
+        return $this->belongsTo(Phone::class);
     }
-
-
 }

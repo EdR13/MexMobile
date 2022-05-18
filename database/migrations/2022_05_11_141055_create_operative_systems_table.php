@@ -16,7 +16,7 @@ class CreateOperativeSystemsTable extends Migration
         Schema::create('operative_systems', function (Blueprint $table) {
             $table->id();
             $table->string('name', 15);
-            $table->integer('version');
+            $table->float('version');
         });
     }
 

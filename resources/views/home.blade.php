@@ -6,16 +6,26 @@
 </h2>
 @foreach($phones as $phone)
     <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800 mt-4">
-        {{--<img src="{{ $pelicula-> imagen }}" width="150" class="p-2 mr-3">--}}
+        {{--<div class="flex items-center p-2 bg-white rounded-lg shadow-xs dark:bg-gray-800 mt-4">
+            @foreach($images as $image)
+                <div class="flex items-center p-2 bg-white rounded-lg shadow-xs dark:bg-gray-800 mt-4">
+                  <body>
+                      <a target="_blank" href="{{$image->image}}">
+                          <img src="{{$image->image}}" style="max-height:100px; max-width:100px" alt="Phone Picture">
+                      </a>
+                  </body>
+                </div>
+            @endforeach
+        </div>--}}
         <div class="w-full">
             <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                <a href="">{{ $phone->name }}</a> 
+                <a href="{{ route('phones.show', $phone->id) }}">{{ $phone->name }}</a> 
             </p>
             <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
-                Release Year: {{ $phone-> release_year }}
+                Release Year: {{ $phone->release_year }}
             </p>
             <p class="text-gray-700 dark:text-gray-400 min-w-2x1 mt-4">
-                {{ $phone->operative_system($phone->os_id) }}
+                {{ $phone->os($phone->os_id) }}
             </p> 
         </div>
     </div>

@@ -13,8 +13,8 @@ class CreateImagePhoneTable extends Migration
      */
     public function up()
     {
-        Schema::create('image_phone', function (Blueprint $table) {
-            $table->foreignId('image_id')->constrained();
+        Schema::create('image_phones', function (Blueprint $table) {
+            $table->foreignId('image_id')->constrained()->onDelete('cascade');
             $table->foreignId('phone_id')->constrained()->onDelete('cascade');
         });
     }
@@ -26,6 +26,6 @@ class CreateImagePhoneTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('image_phone');
+        Schema::dropIfExists('image_phones');
     }
 }

@@ -19,8 +19,8 @@ class CreatePhonesTable extends Migration
             $table->string('name', 45);
             $table->integer('storage');
             $table->integer('ram');
-            $table->integer('batery');
-            $table->boolean('5g_capable');
+            $table->integer('battery');
+            $table->boolean('fiveg_capable');
             $table->year('release_year');
             $table->integer('price');
             $table->foreignId('manufacturer_id')->references('id')->on('manufacturers');

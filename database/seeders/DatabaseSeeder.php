@@ -18,7 +18,9 @@ class DatabaseSeeder extends Seeder
             ManufacturersSeeder::class,
             ColorsSeeder::class,
             Operative_SystemsSeeder::class,
-            PhonesSeeder::class
+            PhonesSeeder::class,
+            ImageSeeder::class,
+            ImagePhoneSeeder::class
         ]);
         
     }

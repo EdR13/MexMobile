@@ -1,19 +1,35 @@
 @extends('layouts.home')
 @section('content')
-
+@include('alerts.alert')
 <main class="h-full pb-16 overflow-y-auto">
+  <div class="flex items-stretch ">
+    @isset($phone)
+    <div>
+      <h2 class="text-centered my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+        Images
+      </h2>
+      @foreach ($images as $image)
+        <form action="/deletePhoto/{{ $image->id }}" method="POST">
+          <button class="btn text-danger">X</button>
+          @csrf
+          @method('delete')
+        </form>
+        <img src="{{ $image->image }}" class="object-cover h-auto w-32" style="max-height=100px;">
+      @endforeach
+    </div>
+    @endisset
     <div class="container px-6 mx-auto grid">
         @isset($phone)
             <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
                 Edit Phone
             </h2>
-            <form action="/phone/{{ $phone->id }}" method="POST"  class="" enctype="multipart/form-data">{{-- Actualizar (update) --}}
+            <form action="/phones/{{ $phone->id }}" method="POST" enctype="multipart/form-data">{{-- Actualizar (update) --}}
             @method('PATCH')
         @else
             <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
                 Add New Phone
             </h2>
-            <form action="{{ url('/phone') }}" method="POST" enctype="multipart/form-data"> {{-- Crear --}}
+            <form action="{{ url('phones') }}" method="POST" enctype="multipart/form-data"> {{-- Crear --}}
         @endisset
         @csrf
         <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
@@ -41,11 +57,11 @@
                 </span><br>
                 <select @error('storage') class="block w-full mt-1 text-sm border-red-600 dark:text-gray-300 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input" @enderror class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" required id="storage" name="storage">
                   <option></option>
-                  <option value="64" {{  isset($phone) && $phone->storage == 64 ? 'selected' : old('storage') }}>64 GB</option>
-                  <option value="128" {{  isset($phone) && $phone->storage == 128 ? 'selected' : old('storage') }}>128 GB</option>
-                  <option value="256" {{  isset($phone) && $phone->storage == 256 ? 'selected' : old('storage') }}>256 GB</option>
-                  <option value="512" {{  isset($phone) && $phone->storage == 512 ? 'selected' : old('storage') }}>512 GB</option>
-                  <option value="1024" {{  isset($phone) && $phone->storage == 1024 ? 'selected' : old('storage') }}>1024 GB</option>
+                  <option value="64" {{  isset($phone) && $phone->storage == 64 ? 'selected' : '' }}>64 GB</option>
+                  <option value="128" {{  isset($phone) && $phone->storage == 128 ? 'selected' : '' }}>128 GB</option>
+                  <option value="256" {{  isset($phone) && $phone->storage == 256 ? 'selected' : '' }}>256 GB</option>
+                  <option value="512" {{  isset($phone) && $phone->storage == 512 ? 'selected' : '' }}>512 GB</option>
+                  <option value="1024" {{  isset($phone) && $phone->storage == 1024 ? 'selected' : '' }}>1024 GB</option>
                 </select>
               </label>
               <label class="block mt-4 text-sm">
@@ -62,53 +78,109 @@
               </label>
               <label class="block mt-4 text-sm ">
                 <span class="text-gray-700 dark:text-gray-400">Battery Capacity</span>
-                <input @error('batery') class="block w-full mt-1 text-sm border-red-600 dark:text-gray-300 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input" @enderror class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" id="battery" name="battery" type="number" min="2800" max="7000" placeholder="In mAh" required value="{{ old('battery') }} {{isset($phone) ? $phone->battery: ''}}" />
-                @error('batery')
+                <input @error('battery') class="block w-full mt-1 text-sm border-red-600 dark:text-gray-300 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input" @enderror class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" id="battery" name="battery" type="number" min="2800" max="7000" placeholder="In mAh" required value="{{isset($phone) ? $phone->battery: old('battery')}}" />
+                @error('battery')
                 <span class="text-xs text-red-600 dark:text-red-400">
                     {{ $message }}
                 </span>
                 @enderror
             </label>
+            <label class="block mt-4 text-sm">
+                <span class="text-gray-700 dark:text-gray-400">
+                  Device Color
+                </span><br>
+                <select @error('color_id') class="block w-full mt-1 text-sm border-red-600 dark:text-gray-300 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input" @enderror class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" required id="color" name="color">
+                  <option></option>
+                  @foreach ($colors as $color)
+                    <option value="{{ $color->id }}" {{  isset($phone) && $phone->color_id == $color->id ? 'selected' : '' }}>{{ $color->color }}</option>
+                  @endforeach
+                </select>
+                @error('color_id')
+                <span class="text-xs text-red-600 dark:text-red-400">
+                    {{ $message }}
+                </span>
+                @enderror
+            </label>
+            <label class="block mt-4 text-sm">
+                <span class="text-gray-700 dark:text-gray-400">
+                  Manufacturer
+                </span><br>
+                <select @error('manufacturer_id') class="block w-full mt-1 text-sm border-red-600 dark:text-gray-300 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input" @enderror class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" required id="manufacturer" name="manufacturer">
+                  <option></option>
+                  @foreach ($manufacturers as $manufacturer)
+                    <option value="{{ $manufacturer->id }}" {{  isset($phone) && $phone->manufacturer_id == $manufacturer->id ? 'selected' : ''}}>{{ $manufacturer->name }}</option>
+                  @endforeach
+                </select>
+                @error('manufacturer_id')
+                <span class="text-xs text-red-600 dark:text-red-400">
+                    {{ $message }}
+                </span>
+                @enderror
+            </label>
+            <label class="block mt-4 text-sm">
+                <span class="text-gray-700 dark:text-gray-400">
+                  Operative System
+                </span><br>
+                <select @error('os_id') class="block w-full mt-1 text-sm border-red-600 dark:text-gray-300 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input" @enderror class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" required id="os" name="os">
+                  <option></option>
+                  @foreach ($os as $o)
+                    <option value="{{ $o->id }}" {{  isset($phone) && $phone->os_id == $o->id ? 'selected' : '' }}>{{ $o->name }} - {{ $o->version }}</option>
+                  @endforeach
+                </select>
+                @error('os_id')
+                <span class="text-xs text-red-600 dark:text-red-400">
+                    {{ $message }}
+                </span>
+                @enderror
+            </label>
+            <label class="block mt-4 text-sm">
+                <span class="text-gray-700 dark:text-gray-400">
+                  5G Compatibility
+                </span><br>
+                <select @error('fiveg_capable') class="block w-full mt-1 text-sm border-red-600 dark:text-gray-300 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input" @enderror class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray" required id="fiveg_capable" name="fiveg_capable">
+                  <option></option>
+                  <option value="0" {{  isset($phone) && $phone->fiveg_capable == 0 ? 'selected' :''}}>No</option>
+                  <option value="1" {{  isset($phone) && $phone->fiveg_capable == 1 ? 'selected' : '' }}>Yes</option>
+                </select>
+                @error('fiveg_capable')
+                <span class="text-xs text-red-600 dark:text-red-400">
+                    {{ $message }}
+                </span>
+                @enderror
+            </label>
+            <label class="block mt-4 text-sm ">
+                <span class="text-gray-700 dark:text-gray-400">Release Year</span>
+                <input @error('release_year') class="block w-full mt-1 text-sm border-red-600 dark:text-gray-300 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input" @enderror class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" id="release_year" name="release_year" type="number" min="2015" max="2022" required value="{{isset($phone) ? $phone->release_year: old('release_year')}}" />
+                @error('release_year')
+                <span class="text-xs text-red-600 dark:text-red-400">
+                    {{ $message }}
+                </span>
+                @enderror
+            </label>
+            <label class="block mt-4 text-sm ">
+                <span class="text-gray-700 dark:text-gray-400">Price</span>
+                <input @error('price') class="block w-full mt-1 text-sm border-red-600 dark:text-gray-300 dark:bg-gray-700 focus:border-red-400 focus:outline-none focus:shadow-outline-red form-input" @enderror class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input" id="price" name="price" type="number" min="0" max="100000" required value="{{isset($phone) ? $phone->price: old('price')}}" />
+                @error('price')
+                <span class="text-xs text-red-600 dark:text-red-400">
+                    {{ $message }}
+                </span>
+                @enderror
+            </label>
+            <label class="block mt-4 text-sm">
+                <span class="text-gray-700 dark:text-gray-400">Upload Images</span>
+                <input accept="image/*" type="file" name="images[]" multiple class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input form-control @error('image') is-invalid @enderror" value="{{ old('image') }}">
+                @error('images')
+                <span class="text-xs text-red-600 dark:text-red-400 invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+                <img id="image-thumb" class="img-fluid img-thumbnail" src="">
+            </label>
+
+            <input class="mt-4 px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple" type="submit" value="Upload" />
         </div>
     </div>
-
-</main>
-
-    <br>
-    <div class="mb-3">
-        <label for='manufacter'>Manufacter:</label>
-        <input type="text" name="manufacter" class="form-control" tabindex="1" value="{{ old('manufacter') ?? $phone->manufacter ?? ''}}"> 
-    </div>
-    @error('manufacter')
-        <div class="alert alert-danger">{{ $message }}</div>
-    @enderror
-    <div class="mb-3">
-        <label for='color'>Color:</label>
-        <input type="text" id="color" name="color" class="form-control" tabindex="2" value="{{ old('color') ?? $phone->color ?? ''}}">
-    </div>
-    <div class="mb-3">
-        <label for='os'>OS:</label>
-        <input type="text" name="os" step="0.1" class="form-control" tabindex="3" value="{{ old('os') ?? $phone->os ?? ''}}">
-    </div>
-    <div class="mb-3">
-        <label for='batery'>Batery:</label>
-        <input type="number" id="batery" name="batery" class="form-control" tabindex="8" value="{{ old('batery') ?? $phone->batery ?? ''}}">
-    </div>
-    <div class="mb-3">
-        <label for='release_year'>5g capable:</label>  
-    </div>
-    <div class="mb-3">
-        <label for='release_year'>Release year:</label>
-        <input type="number" name="release_year" step="0.1" class="form-control" tabindex="10" value="{{ old('release_year') ?? $phone->release_year ?? ''}}">
-    </div>
-    <div class="mb-3">
-        <label for='price'>Price:</label>
-        <input type="number" name="price" step="0.1" class="form-control" tabindex="11" value="{{ old('price') ?? $phone->price ?? ''}}">
-    </div>
-    <div class="mb-3">
-        <label for='photo'>Photo:</label>
-        <input type="text" name="photo" step="0.1" class="form-control" tabindex="12" value="{{ old('photo') ?? $phone->photo ?? ''}}">
-    </div>
-    <input type="submit" value="Guardar" class="btn btn-primary" tabindex="13" />
     </form>
+  </div>
+</main>
 @endsection

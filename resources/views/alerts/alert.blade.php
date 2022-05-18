@@ -1,5 +1,15 @@
-@if (Session::has('success'))
-
+@if (session('success'))
+<div class="alert alert-dismissible alert-success">
+    <button type="button" class="btn-close" data-bs-dismiss="alert">
+        <h4 class="alert-heading">
+            <strong>Success!</strong>
+        </h4> 
+        <p class="mb-0">
+            {{ session('success') }}
+        </p>
+        <i class="fa fa-times"></i>
+    </button>
+</div>
 
 @endif
 

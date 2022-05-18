@@ -87,7 +87,7 @@
                 {{ Auth::user()->name }}
 
                 <button
-                  class="align-middle  rounded-full focus:shadow-outline-purple focus:outline-none"
+                  class="align-middle px-1 rounded-full focus:shadow-outline-purple focus:outline-none"
                   @click="toggleProfileMenu"
                   @keydown.escape="closeProfileMenu"
                   aria-label="Account"
