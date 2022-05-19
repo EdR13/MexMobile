@@ -20,7 +20,8 @@ class DatabaseSeeder extends Seeder
             Operative_SystemsSeeder::class,
             PhonesSeeder::class,
             ImageSeeder::class,
-            ImagePhoneSeeder::class
+            ImagePhoneSeeder::class, 
+            PhoneUserSeeder::class
         ]);
         
     }

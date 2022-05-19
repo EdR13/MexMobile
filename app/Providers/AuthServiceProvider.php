@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 use Illuminate\Support\Facades\Auth;
-use App\Policies\PhonePolicy;
 use App\Models\Phone;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -17,9 +16,6 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @var array<class-string, class-string>
      */
-    protected $policies = [
-        Phone::class => PhonePolicy::class,
-    ];
 
     /**
      * Register any authentication / authorization services.
@@ -32,6 +28,9 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('hasPermission', function (User $user) {
             return $user->type === "Admin";
+        });
+        Gate::define('can', function (User $user) {
+            return $user->type === "Client";
         });
     }
 }

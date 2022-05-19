@@ -10,6 +10,8 @@ use App\Models\Operative_System;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Models\ImagePhone;
+use App\Models\PhoneUSer;
+
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -56,9 +58,13 @@ class PhoneController extends Controller
     }
     
     public function myOrders()
-    {
-        $orders = Auth::user()->order('user')->get(); //listado de solo ese usuario 
-        return view('orders.indexOrders', compact('orders'));
+    {   
+        if (!Gate::allows('can')) {
+            abort(403);
+        }
+        $orders = PhoneUser::where('user_id', Auth::user()->id)->get('phone_id');
+        $phones= Phone::whereIn('id', $orders)->get();
+        return view('orders.indexOrders', compact('phones'));
     }
 
     /**

@@ -59,9 +59,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'profile_photo_url',
     ];
 
-    public function order()
+    public function phones()
     {
-        return $this->hasMany(Order::class);
+        return $this->hasMany(Phone::class);
     }
 
     public function hasRole($role)

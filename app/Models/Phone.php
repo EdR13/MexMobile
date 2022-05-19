@@ -28,7 +28,7 @@ class Phone extends Model
         return Operative_System::find($id)->name;
     }
 
-    public function order(){
-        return $this->hasMany(Order::class);
+    public function user(){
+        return $this->belongsToMany(User::class);
     }
 }

@@ -1,6 +1,7 @@
 @extends('layouts.home')
 @section('content')
 @include('alerts.alert')
+
 <main class="h-full pb-16 overflow-y-auto">
   <div class="flex items-stretch ">
     @isset($phone)
@@ -14,7 +15,11 @@
           @csrf
           @method('delete')
         </form>
+        @if( Str::startsWith($image->image, 'https'))
         <img src="{{ $image->image }}" class="object-cover h-auto w-32" style="max-height=100px;">
+        @else
+          <img src="/phones/{{ $image->image }}" class="object-cover h-auto w-32" style="max-height=100px;">
+        @endif
       @endforeach
     </div>
     @endisset
