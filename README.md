@@ -95,7 +95,7 @@ password: password
 
 ### User:
 
-Deberás entrar a la base de datos con tu gestor de base de datos preferido, ya que los usuarios tipo Cliente se generan de manera aleatoria.
+Deberás entrar a la base de datos con tu gestor de base de datos preferido, ya que los usuarios tipo Cliente se generan de manera aleatoria. Contraseña por defecto: password
 
 ### Resumen de MexMobile:
 
