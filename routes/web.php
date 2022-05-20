@@ -1,11 +1,16 @@
 <?php
 
+use App\Http\Controllers\PhoneController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
+use App\Models\Phone;
+use App\Models\Image;
+use App\Models\ImagePhone;
 
-/*
+/*{{  }}{{--  --}}
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
@@ -31,22 +36,32 @@ Route::post('/email/verification-notification', function (Request $request) {
 
 Route::get('/profile', function () {
     // Only verified users may access this route...
-})->middleware('verified');
+})->middleware(['verified', 'auth']);
 
 Route::get('/', function () {
-    return view('pages.main');
+    return view('welcome');
 });
+
+Route::get('/ControlPanel', [PhoneController::class, 'controlPanel'])->middleware(['verified', 'auth']);
 
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/home', function () {
+        $phones = Phone::all();
+        $images = Image::all();
+        return view('home', compact('phones', 'images'));
+    })->name('home');
 });
 
 Route::get('/email/verify', function () {
     return view('auth.verify-email');
 })->middleware('auth')->name('verification.notice');
+
+Route::get('/create', [PhoneController::class, 'create'])->middleware(['verified', 'auth']);
+Route::delete('/deletePhoto/{id}', [PhoneController::class, 'deletePhoto'])->middleware(['verified', 'auth']);
+Route::get('/phones/orders', [PhoneController::class, 'myOrders'])->middleware(['verified', 'auth']);
+Route::post('/phones/orders/{id}', [PhoneController::class, 'addToCart'])->middleware(['verified', 'auth']);
+Route::resource('/phones', PhoneController::class)->middleware(['verified', 'auth']);

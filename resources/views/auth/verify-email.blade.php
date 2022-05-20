@@ -12,10 +12,6 @@
             <div class="mb-4 font-medium text-sm text-green-600">
                 {{ __('A new verification link has been sent to the email address you provided during registration.') }}
             </div>
-        @else
-            <div class="mb-4 font-medium text-sm text-red-600">
-                {{ __('Could not send a verification link. Please, try again!') }}
-            </div>
         @endif
 
         <div class="mt-4 flex items-center justify-between">
