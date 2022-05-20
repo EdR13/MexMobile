@@ -10,6 +10,11 @@ class PhoneUser extends Model
     use HasFactory;
     public $timestamps = false;
 
+    protected $fillable = [
+        'user_id',
+        'phone_id',
+     ];
+
     public function user(){
         return $this->belongsToMany(User::class);
     }

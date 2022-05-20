@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateImagePhoneTable extends Migration
+class CreatePhoneImageTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateImagePhoneTable extends Migration
      */
     public function up()
     {
-        Schema::create('image_phones', function (Blueprint $table) {
+        Schema::create('phone_images', function (Blueprint $table) {
             $table->foreignId('image_id')->constrained()->onDelete('cascade');
             $table->foreignId('phone_id')->constrained()->onDelete('cascade');
         });
@@ -26,6 +26,6 @@ class CreateImagePhoneTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('image_phones');
+        Schema::dropIfExists('phone_images');
     }
 }

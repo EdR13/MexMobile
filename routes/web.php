@@ -63,4 +63,5 @@ Route::get('/email/verify', function () {
 Route::get('/create', [PhoneController::class, 'create'])->middleware(['verified', 'auth']);
 Route::delete('/deletePhoto/{id}', [PhoneController::class, 'deletePhoto'])->middleware(['verified', 'auth']);
 Route::get('/phones/orders', [PhoneController::class, 'myOrders'])->middleware(['verified', 'auth']);
+Route::post('/phones/orders/{id}', [PhoneController::class, 'addToCart'])->middleware(['verified', 'auth']);
 Route::resource('/phones', PhoneController::class)->middleware(['verified', 'auth']);

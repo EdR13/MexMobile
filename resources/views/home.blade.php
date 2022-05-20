@@ -5,18 +5,25 @@
     Avaliable Phones
 </h2>
 @foreach($phones as $phone)
-    <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800 mt-4">
-        {{--<div class="flex items-center p-2 bg-white rounded-lg shadow-xs dark:bg-gray-800 mt-4">
+    <div class="flex items-center items-stretch	 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800 mt-4">
+        {{-- <div class="flex items-center p-2 bg-white rounded-lg shadow-xs dark:bg-gray-800 mt-4">
             @foreach($images as $image)
                 <div class="flex items-center p-2 bg-white rounded-lg shadow-xs dark:bg-gray-800 mt-4">
                   <body>
-                      <a target="_blank" href="{{$image->image}}">
-                          <img src="{{$image->image}}" style="max-height:100px; max-width:100px" alt="Phone Picture">
+                    @if( Str::startsWith($images->image, 'https'))
+                      <a target="_blank" href="{{$images->image}}">
+                          <img src="{{$images->image}}" style="max-height:100px; max-width:100px" alt="Phone Picture">
                       </a>
+                    @else
+                        <a target="_blank" href="/phones/{{$images->image}}">
+                            <img src="/phones/{{$images->image}}" style="max-height:100px; max-width:100px" alt="Phone Picture">
+                        </a>
+                    @endif
+                    @break
                   </body>
                 </div>
             @endforeach
-        </div>--}}
+        </div> --}}
         <div class="w-full">
             <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
                 <a href="{{ route('phones.show', $phone->id) }}">{{ $phone->name }}</a> 

@@ -26,6 +26,6 @@ class CreatePhoneUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('phone_user');
+        Schema::dropIfExists('phone_users');
     }
 }

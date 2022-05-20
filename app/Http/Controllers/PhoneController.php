@@ -9,7 +9,7 @@ use App\Models\Manufacturer;
 use App\Models\Operative_System;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use App\Models\ImagePhone;
+use App\Models\PhoneImage;
 use App\Models\PhoneUSer;
 
 use Illuminate\Support\Facades\Storage;
@@ -63,8 +63,8 @@ class PhoneController extends Controller
             abort(403);
         }
         $orders = PhoneUser::where('user_id', Auth::user()->id)->get('phone_id');
-        $phones= Phone::whereIn('id', $orders)->get();
-        return view('orders.indexOrders', compact('phones'));
+        $phones= Phone::withTrashed()->whereIn('id', $orders)->get();
+        return view('orders.indexOrders', compact('phones', 'orders'));
     }
 
     /**
@@ -137,7 +137,7 @@ class PhoneController extends Controller
      */
     public function show(Phone $phone)
     {
-        $img = ImagePhone::where('phone_id', $phone->id)->get('image_id');
+        $img = PhoneImage::where('phone_id', $phone->id)->get('image_id');
         $images= Image::whereIn('id', $img)->get();
         return view('phones.showPhones', compact('phone', 'images'));
     }
@@ -156,7 +156,7 @@ class PhoneController extends Controller
         $os = Operative_System::all();
         $manufacturers = Manufacturer::all();
         $colors = Color::all();
-        $img = ImagePhone::where('phone_id', $phone->id)->get('image_id');
+        $img = PhoneImage::where('phone_id', $phone->id)->get('image_id');
         $images= Image::whereIn('id', $img)->get();
         return view('phones.formPhones',  compact('os', 'manufacturers', 'colors', 'phone', 'images'));
     }
@@ -222,7 +222,7 @@ class PhoneController extends Controller
         if (!Gate::allows('hasPermission')) {
             abort(403);
         }
-        $list = ImagePhone::where('phone_id', $phone->id)->get('image_id');
+        $list = PhoneImage::where('phone_id', $phone->id)->get('image_id');
         $images= Image::whereIn('id', $list)->get();
         foreach($images as $image)
         {
@@ -247,5 +247,19 @@ class PhoneController extends Controller
         }
         $img->delete();
         return back()->with('success', 'Image deleted successfully!');
+    }
+    
+    public function addToCart($id)
+    {
+        if (!Gate::allows('can')) {
+            abort(403);
+        }
+        
+        PhoneUser::create([
+            'user_id' => Auth::user()->id,
+            'phone_id' => $id
+        ]);
+        return redirect('/phones/orders')->with('success', 'Phone added successfully!');
+    
     }
 }
