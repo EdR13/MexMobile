@@ -65,16 +65,17 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 ## Instalación:
 
-1. Clonar el proyecto en `C:\laragon\www`: `git clone https://github.com/EdR13/YourTasks.git`
-2. Cambiarse al directorio del proyecto: `cd YourTasks`
+1. Clonar el proyecto en `C:\laragon\www`: `git clone https://github.com/EdR13/MexMobile.git`
+2. Cambiarse al directorio del proyecto: `cd MexMobile`
 3. Instalar dependiencias mediante composer: `composer install`
 4. Usar el comando: `npm install`
 5. Crear archivo de variables de entorno: `cp .env.example .env`
 6. Crear llave: `php artisan key:generate`
-7. Configurar los datos del Mailgun en el archivo: `.env`
-8. Crear la base de datos en tu sistema gestor de bases de datos: `CREATE DATABASE yourtasks`
+7. Configurar los datos del Mailgun o tu servidor de correo en el archivo: `.env`
+8. Crear la base de datos en tu sistema gestor de bases de datos: `CREATE DATABASE mexmobile`
 9. Configurar nombre de base de datos en _.env_ y ejecutar migraciones con seeders: `php artisan migrate --seed`
-10. Registrar el localhost `127.0.0.1 yourtasks.test #laragon magic!` en el archivo `hosts` de Laragon
+10. Ejecutar el comando `php artisan storage:link` para ligar el almacenamiento en Laravel y subir archivos.
+11. Registrar el localhost `127.0.0.1 mexmobile.test #laragon magic!` en el archivo `hosts` de Laragon
 
 ## Refrescar la BD
 
@@ -84,3 +85,19 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 ## Linkear la carpeta para acceder a los archivos almacenados (imagenes)
 
 `php artisan storage:link`
+
+## Cuentas de usuario:
+
+### Admin:
+
+email: taylorswift@test.com<br>
+password: password
+
+### User:
+
+Deberás entrar a la base de datos con tu gestor de base de datos preferido, ya que los usuarios tipo Cliente se generan de manera aleatoria.
+
+### Resumen de MexMobile:
+
+MexMobile es una tienda de venta de teléfonos online que posee una interfaz administrativa y otra para clientes en la que pueden administrar los dispositivos que se venden y comprar agregar a sus ordenes respectivamente.
+
